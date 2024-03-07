@@ -5,7 +5,7 @@ import pandas as pd
 import wfdb  # WaveForm-Database package. A library of tools for reading, writing, and processing WFDB signals and annotations.
 
 
-def convert_to_csv(path='./', new_folder=True):
+def convert_to_csv(path='.', new_folder=True):
     """
     Code to convert all .dat files (ECG signals) in a folder to CSV format
     Path - location of the dat files (str)
@@ -21,6 +21,8 @@ def convert_to_csv(path='./', new_folder=True):
         print(file)
         # Get only the name from file.
         filename = file.stem
+
+        print(filename)
         # Read the signal data
         record, fields = wfdb.rdsamp(filename)
         # Drive7 hand GSR is misspelled.
@@ -48,3 +50,4 @@ def read_data(path, extension="*.csv"):
         else:
             yield file
 
+convert_to_csv()

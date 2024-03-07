@@ -53,3 +53,4 @@ def column_information(data, file_name, driver_columns):
     """
     driver_columns[file_name] = list(data.columns)
 
+get_all_csv_info()

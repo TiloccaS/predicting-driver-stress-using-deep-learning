@@ -21,9 +21,9 @@ np.random.seed(9)
 tf.random.set_seed(9)
 random.seed(9)
 os.environ['PYTHONHASHSEED'] = str(9)
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
-DATASET_PATH = '/media/kryekuzhinieri/Thesis/Datasets 2/Stress Recognition In Automobile Drivers/csv_files/preprocessed_data/final_data/all_drives.csv'
+DATASET_PATH = './csv_files/preprocessed_data/all_drives.csv'
 
 
 def get_train_test_data(path, undersample=False, shuffle=False, test_drives=["Drive15", "Drive16"]):
@@ -42,10 +42,10 @@ def get_train_test_data(path, undersample=False, shuffle=False, test_drives=["Dr
     if shuffle:
         X_train = X_train.sample(frac=1).reset_index(drop=True)
         X_test = X_test.sample(frac=1).reset_index(drop=True)
-    y_train = X_train["Stress_mean"]
-    y_test = X_test["Stress_mean"]
-    X_train = X_train.drop(["time", "Drive", "Stress_mean"], axis=1)
-    X_test = X_test.drop(["time", "Drive", "Stress_mean"], axis=1)
+    y_train = X_train["Stress"]
+    y_test = X_test["Stress"]
+    X_train = X_train.drop(["Drive", "Stress"], axis=1)
+    X_test = X_test.drop(["Drive", "Stress"], axis=1)
     if undersample:
         undersample = RandomUnderSampler(sampling_strategy="majority")
         X_train, y_train = undersample.fit_resample(X_train, y_train)
@@ -398,6 +398,7 @@ def rnn(X_train, X_test, y_train, y_test):
         training.append(tr)
         validation.append(v)
         testing.append(te)
+        print(te)
     print("Training: ", np.mean(training), np.std(training))
     print("Validation: ", np.mean(validation), np.std(validation))
     print("Testing: ", np.mean(testing), np.std(testing))
@@ -562,3 +563,6 @@ def main(feature_selection, classifier, undersample, shuffle, path=DATASET_PATH,
         rnn(X_train, X_test, y_train, y_test)
     elif classifier == "loop":
         find_best_parameters(X_train, X_test, y_train, y_test, algorithm=algorithm)
+
+
+main(feature_selection=None,classifier="loop",undersample=True,shuffle=True)

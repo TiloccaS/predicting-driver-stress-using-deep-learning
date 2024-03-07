@@ -69,7 +69,7 @@ def label_data(starting_indices, row_index):
         return 5.0
 
 
-def process_data(marker_data_path="./csv_files/Marker Data", csv_files_path="./csv_files"):
+def process_data(marker_data_path="./data", csv_files_path="./csv_files"):
     # Create a new folder called preprocessed_data if it does not exist.
     Path(csv_files_path).joinpath("preprocessed_data").mkdir(parents=True, exist_ok=True)
     # Grabs all the csv files from the path.
@@ -107,6 +107,9 @@ def process_data(marker_data_path="./csv_files/Marker Data", csv_files_path="./c
     # Save the dataframe.
     all_drives_data.to_csv(f"{csv_files_path}/preprocessed_data/all_drives.csv", index=False)
     print(f"Data saved in the {csv_files_path}/preprocessed_data directory.")
+
+
+process_data()
 
 
 # Reference

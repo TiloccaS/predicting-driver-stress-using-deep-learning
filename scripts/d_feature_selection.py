@@ -232,7 +232,6 @@ def calculate_features(functions_to_apply, column_names, downsample_frequency="1
         data.columns = column_names
         # Show only time in datetime.
         data['time'] = data['time'].dt.time
-        print(data['Stress_mean'].value_counts())
         print(f"{len(data.columns) - 2} Columns")
         data.to_csv(f"{path}/{folder_name}/{file_name}.csv", index=False)
         data['Drive'] = file_name
